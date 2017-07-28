@@ -1,0 +1,22 @@
+﻿@model WebApplication2.ViewModels.CustomerViewModel
+@{
+    ViewBag.Title = "Customers";
+}
+<h2>Customers</h2>
+@{
+    <div class="list-group">
+        <a class="list-group-item active">Customers</a>
+            
+        @foreach (var customer in @Model.Customers)
+        {
+            var id = customer.Id;
+            var name = customer.Name;
+
+            <a href= "/Customer/Details/@id" class="list-group-item">@name</a>
+
+            //@Html.ActionLink(name, "Details", "Customers", new {id = id}, null) class="list-group-item">name</a>
+        }
+    </div>
+}
+
+
