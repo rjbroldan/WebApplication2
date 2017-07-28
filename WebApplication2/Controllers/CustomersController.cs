@@ -27,7 +27,8 @@ namespace WebApplication2.Controllers
                 Customers = customers
             };
                
-            return View(customerList);
+            //return View(customerList);
+            return View(customers);
         }
     }
 }

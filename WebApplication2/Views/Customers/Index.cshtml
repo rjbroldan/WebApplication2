@@ -1,13 +1,17 @@
-﻿@model WebApplication2.ViewModels.CustomerViewModel
+﻿
+@model List<WebApplication2.Models.Customer>
+    
+@*@model WebApplication2.ViewModels.CustomerViewModel*@
+
 @{
     ViewBag.Title = "Customers";
 }
 <h2>Customers</h2>
 @{
     <div class="list-group">
-        <a class="list-group-item active">Customers</a>
+        <a class="list-group-item active">Customers</a>      
             
-        @foreach (var customer in @Model.Customers)
+        @foreach (var customer in @Model)
         {
             var id = customer.Id;
             var name = customer.Name;
