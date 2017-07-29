@@ -1,0 +1,21 @@
+﻿@using System.Runtime.Serialization
+@model WebApplication2.Models.Customer
+@{
+    
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var custName = Model.Name;
+    var custId = Model.Id;
+    var customerBirthDate = Model.BirthDate;
+    var customerMembershipType = Model.MembershipType.MembershipTypeName;
+}
+
+<h2>@custName</h2>
+
+<li>Membership Type: @customerMembershipType</li>
+
+@if (customerBirthDate != null)
+{
+    <li>Birth Date: @customerBirthDate.Value.ToShortDateString()</li>
+}
+
