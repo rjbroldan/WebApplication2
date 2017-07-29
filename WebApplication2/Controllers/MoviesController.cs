@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -11,35 +12,28 @@ namespace WebApplication2.Controllers
 {
     public class MoviesController : Controller
     {
-        // GET: Movies
-        public ActionResult Random()
+        private ApplicationDbContext _context;
+
+        public MoviesController()
         {
-            var movie = new Movies() { Name = "Shrek" };
-            var customers = new List<Customer>
-            {
-                new Customer() {Name = "Customer 1"},
-                new Customer() {Name = "Customer 2"},
-                new Customer() {Name = "Customer 3"},
-                new Customer() {Name = "Customer 4"},
-                new Customer() {Name = "Customer 5"}
-            };
-
-            var viewModel = new RandomMovieViewModel
-            {
-                Movies = movie,
-                Customers = customers
-            };
-
-            return View(viewModel);            
+            _context = new ApplicationDbContext();
         }
 
-        [Route("movies/released/{year}/{month:regex(\\d{2}):range(1,12)}")]
+        //[Route("movies/released/{year}/{month:regex(\\d{2}):range(1,12)}")]
 
-        public ActionResult ByReleaseDate(int year, int month)
+
+        public ActionResult Index()
         {
-            return Content(year + "/" + month);
+            var movieList = _context.Movies.Include(c => c.MovieGenre).ToList();
+
+            return View(movieList);
         }
 
-          
+        public ActionResult Details(int id)
+        {
+            var movie = _context.Movies.Include(c => c.MovieGenre).SingleOrDefault(c => c.Id == id);
+            return View(movie);
+        }
+
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Entity;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,24 +11,30 @@ namespace WebApplication2.Controllers
 {
     public class CustomersController : Controller
     {
+        private ApplicationDbContext _context;
+
+        public CustomersController()
+        {
+            _context = new ApplicationDbContext();
+        }
+
         // GET: Customers
         public ActionResult Index()
         {
-            var customers = new List<Customer>
-            {
-                new Customer() {Name = "Hannah Barbera", Id = 1},
-                new Customer() {Name = "Santa Claus", Id = 2},
-                new Customer() {Name = "Cool Bananas", Id = 3},
-                new Customer() {Name = "Crazy Eye Joe", Id = 4},
-                new Customer() {Name = "St Nicholas", Id = 5}
-            };
-
-            var customerList = new CustomerViewModel()
-            {
-                Customers = customers
-            };
+            var customers = _context.Customers.Include(c => c.MembershipType).ToList();
                
-            return View(customerList);
+            return View(customers);
+        }
+
+        public ActionResult Details(int id)
+        {
+            //var customer = GetCustomers().FirstOrDefault(c => c.Id == id);
+            var customer = _context.Customers.Include(c => c.MembershipType).SingleOrDefault(c => c.Id == id);
+
+            if (customer == null)
+                return HttpNotFound();
+
+            return View(customer);
         }
     }
 }

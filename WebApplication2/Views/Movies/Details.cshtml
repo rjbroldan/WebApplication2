@@ -1,0 +1,23 @@
+﻿@using System.Runtime.Serialization
+@model WebApplication2.Models.Movies
+@{
+
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var movieName = Model.Name;
+    var movieGenre = Model.MovieGenre.Name;
+    var movieDateAdded = Model.DateAdded;
+    var movieReleaseDate = Model.ReleaseDate;
+    var movieNumberOfStock = Model.NumberInStock;
+
+}
+
+<h2>@movieName</h2>
+
+<li>Genre: @movieGenre</li>
+<li>Genre: @movieReleaseDate</li>
+<li>Genre: @movieDateAdded</li>
+<li>Genre: @movieNumberOfStock</li>
+
+

@@ -1,22 +1,69 @@
-﻿@model WebApplication2.ViewModels.CustomerViewModel
+﻿
+@model IEnumerable<WebApplication2.Models.Customer>
+    
+@*@model WebApplication2.ViewModels.CustomerViewModel*@
+
 @{
     ViewBag.Title = "Customers";
 }
 <h2>Customers</h2>
 @{
-    <div class="list-group">
-        <a class="list-group-item active">Customers</a>
+    if (!Model.Any())
+    {
+        <p>There are no customers</p>
+    }
+    else
+    {
+        <table class=" table table-striped table-bordered table-hover">
+            <tr>
+                <th>Customer</th>
+                <th>Subscribed to Newsletters</th>
+                <th>Membership Type</th>
+                <th>Duration</th>
+                <th>Discount</th>
+            </tr>
             
-        @foreach (var customer in @Model.Customers)
-        {
-            var id = customer.Id;
-            var name = customer.Name;
+            @foreach (var customer in @Model)
+            {
+                var customerId = customer.Id;
+                var customerName = customer.Name;
+                var customerSubscribedToNewsletters = "No";
+                var customerMembershipType = customer.MembershipType.MembershipTypeName;
+                var customerMembershipDuration = customer.MembershipType.DurationInMonths;
+                var customerDiscount = customer.MembershipType.DiscountRate;
 
-            <a href= "/Customer/Details/@id" class="list-group-item">@name</a>
+                if (customer.IsSubscribedToNewletters == true)
+                {
+                    customerSubscribedToNewsletters = "Yes";
+                }
 
-            //@Html.ActionLink(name, "Details", "Customers", new {id = id}, null) class="list-group-item">name</a>
-        }
-    </div>
+                <tr>
+                    <td>@Html.ActionLink(customerName, "Details", "Customers", new { id = customerId }, null)</td>
+                    <td>@customerSubscribedToNewsletters</td>
+                    <td>@customerMembershipType</td>
+                    <td>@customerMembershipDuration Months</td>
+                    <td>@customerDiscount%</td>
+                </tr>
+            }
+
+        </table>
+
+
+        @*<div class="list-group">
+            <a class="list-group-item active">Customers</a>      
+            
+            @foreach (var customer in @Model)
+            {
+                var id = customer.Id;
+                var name = customer.Name;
+
+                <a href= "/Customers/Details/@id" class="list-group-item">@name</a>
+
+                //@Html.ActionLink(name, "Details", "Customers", new {id = id}, null) class="list-group-item">name</a>
+            }
+        </div>*@
+  
+    }
 }
 
 
