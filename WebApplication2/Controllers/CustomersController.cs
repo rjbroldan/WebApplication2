@@ -36,5 +36,17 @@ namespace WebApplication2.Controllers
 
             return View(customer);
         }
+
+        public ActionResult NewCustomer()
+        {
+            var membershipTypes = _context.MembershipTypes.ToList();
+            var viewModel = new NewCustomerViewModel()
+            {
+                MembershipTypes = membershipTypes
+            };
+
+            return View(viewModel);
+        }
+
     }
 }
