@@ -49,6 +49,11 @@
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="MySql.Data, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
+    <Reference Include="MySql.Data.Entity, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
+    <Reference Include="MySql.Data.Entity.EF5, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
+    <Reference Include="MySql.Data.Entity.EF6, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
+    <Reference Include="MySql.Web, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -232,6 +237,18 @@
     <Compile Include="Migrations\201707291234221_SeedMovieGenreTable.Designer.cs">
       <DependentUpon>201707291234221_SeedMovieGenreTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201707291520331_UsingMySQLServer.cs" />
+    <Compile Include="Migrations\201707291520331_UsingMySQLServer.Designer.cs">
+      <DependentUpon>201707291520331_UsingMySQLServer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201707301148437_FixMembershipTypeIdNullableIssues.cs" />
+    <Compile Include="Migrations\201707301148437_FixMembershipTypeIdNullableIssues.Designer.cs">
+      <DependentUpon>201707301148437_FixMembershipTypeIdNullableIssues.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201707301158479_FixMembershipTypeIdNullableIssues1.cs" />
+    <Compile Include="Migrations\201707301158479_FixMembershipTypeIdNullableIssues1.Designer.cs">
+      <DependentUpon>201707301158479_FixMembershipTypeIdNullableIssues1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -243,6 +260,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\CustomerViewModel.cs" />
+    <Compile Include="ViewModels\NewCustomerViewModel.cs" />
     <Compile Include="ViewModels\RandomMovieViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -309,6 +327,7 @@
     <Content Include="Views\Movies\Index.cshtml" />
     <Content Include="Views\Customers\Details.cshtml" />
     <Content Include="Views\Movies\Details.cshtml" />
+    <Content Include="Views\Customers\CustomerForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -355,6 +374,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201707291234221_SeedMovieGenreTable.resx">
       <DependentUpon>201707291234221_SeedMovieGenreTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707291520331_UsingMySQLServer.resx">
+      <DependentUpon>201707291520331_UsingMySQLServer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707301148437_FixMembershipTypeIdNullableIssues.resx">
+      <DependentUpon>201707301148437_FixMembershipTypeIdNullableIssues.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707301158479_FixMembershipTypeIdNullableIssues1.resx">
+      <DependentUpon>201707301158479_FixMembershipTypeIdNullableIssues1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
