@@ -1,0 +1,43 @@
+﻿@model WebApplication2.ViewModels.CustomerFormViewModel
+@{
+    ViewBag.Title = "NewCustomer";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var customerLabel = "New Customer";
+    if (Model.Customer != null)
+    {
+        customerLabel = Model.Customer.Name;
+    }
+
+}
+
+<h2>@customerLabel</h2>
+
+@using (Html.BeginForm("Create", "Customers"))
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.Customer.Name)
+        @Html.TextBoxFor(m => m.Customer.Name, new { @class = "form-control"})
+    </div>
+
+    <div class="form-group">
+        <label>Birth Date</label>
+        @Html.TextBoxFor(m => m.Customer.BirthDate, "{0:d MMM yyyy}", new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        <label>Membership Type</label>
+        @Html.DropDownListFor(m => m.Customer.MembershipTypeId, new SelectList(Model.MembershipTypes, "Id", "MembershipTypeName"), "Select Membership Type", new { @class = "form-control", required="required" })
+    </div>
+
+    <div class="checkbox">
+        <label>
+            @Html.CheckBoxFor(m => m.Customer.IsSubscribedToNewletters) Subscribe to Newsletters
+        </label>
+    </div>
+
+    @Html.HiddenFor(m => m.Customer.Id)
+
+    <button type="submit" class="btn btn-primary">Save</button>
+
+}
+
