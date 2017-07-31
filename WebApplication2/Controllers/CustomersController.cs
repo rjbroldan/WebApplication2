@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using WebApplication2.Models;
 using WebApplication2.ViewModels;
+using System.Data.Entity.Validation;
 
 namespace WebApplication2.Controllers
 {
@@ -21,8 +22,9 @@ namespace WebApplication2.Controllers
         // GET: Customers
         public ActionResult Index()
         {
-            var customers = _context.Customers.Include(c => c.MembershipType).ToList();
-               
+            //sort may slow down the performance
+            var customers = _context.Customers.Include(c => c.MembershipType).OrderBy(o => o.Name).ToList();
+                          
             return View(customers);
         }
 
@@ -51,19 +53,46 @@ namespace WebApplication2.Controllers
         [HttpPost]
         public ActionResult Create(Customer customer)
         {
+            DateTime date;
             if (customer.Id == 0)
+            {
+                if (customer.BirthDate.HasValue)
+                {
+                    date = (DateTime)customer.BirthDate;
+                    if (date.Year < 1900)
+                        customer.BirthDate = new DateTime(1900, 01, 01);
+                }                    
                 _context.Customers.Add(customer);
+            }      
             else
             {
                 var customerInDb = _context.Customers.Single(c => c.Id == customer.Id);
 
-                customerInDb.Name = customer.Name;
-                customerInDb.BirthDate = customer.BirthDate;
+                customerInDb.Name = customer.Name;                
                 customerInDb.MembershipTypeId = customer.MembershipTypeId;
                 customerInDb.IsSubscribedToNewletters = customer.IsSubscribedToNewletters;
+
+                if (customer.BirthDate.HasValue)
+                {
+                    date = (DateTime)customer.BirthDate;
+                    if (date.Year > 1900)
+                        customerInDb.BirthDate = customer.BirthDate;
+                    else
+                    {
+                        customerInDb.BirthDate = new DateTime(1900, 01, 01);
+                    }   
+                }
+                else
+                {
+                    customerInDb.BirthDate = customer.BirthDate;
+                }
+
+
+
             }
 
             _context.SaveChanges();
+
             return RedirectToAction("Index", "Customers");
         }
 

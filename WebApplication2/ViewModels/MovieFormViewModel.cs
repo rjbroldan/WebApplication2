@@ -6,8 +6,10 @@ using WebApplication2.Models;
 
 namespace WebApplication2.ViewModels
 {
-    public class CustomerViewModel
+    public class MovieFormViewModel
     {
-        public List<Customer> Customers { get; set; }
+        public IEnumerable<MovieGenres> MovieGenres { get; set; }
+        public Movies Movie { get; set; }
+
     }
 }
